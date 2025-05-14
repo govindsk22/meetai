@@ -239,7 +239,7 @@ export function ControlBar({
           <MoreOptionsButton style={{ width: '40px', height: '60px', borderRadius: '12px' }} showIcon={showIcon} />
         )}
         {visibleControls.leave && (
-          <DisconnectButton style={{ width: '60px', height: '60px' }}>
+          <DisconnectButton style={{ width: '60px', height: '60px', backgroundColor: 'red' }}>
             {showIcon && <LeaveIcon />}
           </DisconnectButton>
         )}
