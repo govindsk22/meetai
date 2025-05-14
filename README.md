@@ -1,42 +1,122 @@
-<a href="https://livekit.io/">
-  <img src="./.github/assets/livekit-mark.png" alt="LiveKit logo" width="100" height="100">
-</a>
+# MeetAI - Modern Video Conferencing Platform
 
-# LiveKit Meet
+MeetAI is a powerful, open-source video conferencing platform inspired by Google Meet, built with Next.js and LiveKit. It provides a seamless, feature-rich experience for virtual meetings and collaboration.
 
-<p>
-  <a href="https://meet.livekit.io"><strong>Try the demo</strong></a>
-  •
-  <a href="https://github.com/livekit/components-js">LiveKit Components</a>
-  •
-  <a href="https://docs.livekit.io/">LiveKit Docs</a>
-  •
-  <a href="https://livekit.io/cloud">LiveKit Cloud</a>
-  •
-  <a href="https://blog.livekit.io/">Blog</a>
-</p>
+## 🌟 Features
 
-<br>
+- **High-Quality Video Conferencing**
+  - HD video and audio streaming
+  - Real-time communication
+  - Low-latency connections
+  - Adaptive quality based on network conditions
 
-LiveKit Meet is an open source video conferencing app built on [LiveKit Components](https://github.com/livekit/components-js), [LiveKit Cloud](https://cloud.livekit.io/), and Next.js. It's been completely redesigned from the ground up using our new components library.
+- **Meeting Controls**
+  - Camera and microphone controls
+  - Screen sharing capabilities
+  - Meeting recording
+  - Chat functionality
+  - Participant management
 
-![LiveKit Meet screenshot](./.github/assets/livekit-meet.jpg)
+- **User Experience**
+  - Pre-join room configuration
+  - Profile customization
+  - Meeting scheduling
+  - Room creation and management
+  - Responsive design for all devices
 
-## Tech Stack
+- **Security & Privacy**
+  - End-to-end encryption
+  - Secure room access
+  - Authentication system
+  - Privacy controls
 
-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-- App is built with [@livekit/components-react](https://github.com/livekit/components-js/) library.
+## 🛠 Tech Stack
 
-## Demo
+- **Frontend Framework**: [Next.js](https://nextjs.org/)
+- **Video Infrastructure**: [LiveKit](https://livekit.io/)
+- **UI Components**: [@livekit/components-react](https://github.com/livekit/components-js/)
+- **Authentication**: NextAuth.js
+- **Styling**: Tailwind CSS
+- **State Management**: React Context
 
-Give it a try at https://meet.livekit.io.
+## 🚀 Getting Started
 
-## Dev Setup
+### Prerequisites
 
-Steps to get a local dev setup up and running:
+- Node.js 16.x or later
+- pnpm package manager
+- LiveKit account and API keys
 
-1. Run `pnpm install` to install all dependencies.
-2. Copy `.env.example` in the project root and rename it to `.env.local`.
-3. Update the missing environment variables in the newly created `.env.local` file.
-4. Run `pnpm dev` to start the development server and visit [http://localhost:3000](http://localhost:3000) to see the result.
-5. Start development 🎉
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/meetai.git
+   cd meetai
+   ```
+
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+3. Set up environment variables:
+   - Copy `.env.example` to `.env.local`
+   - Fill in the required environment variables:
+     ```
+     NEXT_PUBLIC_LIVEKIT_URL=your_livekit_url
+     NEXT_PUBLIC_LIVEKIT_API_KEY=your_api_key
+     NEXT_PUBLIC_LIVEKIT_API_SECRET=your_api_secret
+     ```
+
+4. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## 📝 Environment Variables
+
+Required environment variables in `.env.local`:
+
+- `NEXT_PUBLIC_LIVEKIT_URL`: Your LiveKit server URL
+- `NEXT_PUBLIC_LIVEKIT_API_KEY`: LiveKit API key
+- `NEXT_PUBLIC_LIVEKIT_API_SECRET`: LiveKit API secret
+- `NEXTAUTH_SECRET`: Secret for NextAuth.js
+- `NEXTAUTH_URL`: Your application URL
+
+## 🏗 Project Structure
+
+```
+meetai/
+├── app/                    # Next.js app directory
+│   ├── components/        # Reusable UI components
+│   ├── auth/             # Authentication related code
+│   ├── api/              # API routes
+│   ├── liveKit/          # LiveKit integration
+│   └── rooms/            # Meeting room components
+├── lib/                   # Utility functions and helpers
+├── public/               # Static assets
+└── styles/               # Global styles
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [LiveKit](https://livekit.io/) for the video infrastructure
+- [Next.js](https://nextjs.org/) for the framework
+- All contributors who have helped shape this project
