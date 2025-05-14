@@ -16,6 +16,7 @@ import { useObservableState } from './internal';
  */
 export interface UseParticipantInfoOptions {
   participant?: Participant;
+  color?: string;
 }
 
 /** @public */

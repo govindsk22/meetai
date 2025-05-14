@@ -43,7 +43,7 @@ export default function LandingPage() {
       <main className={styles.main}>
         <div className={styles.hero}>
           <h1>Secure video conferencing for anyone</h1>
-          <p>Connect, collaborate and celebrate from anywhere with Google Meet.</p>
+          <p>Connect, collaborate and celebrate from anywhere with Meet ai.</p>
         </div>
 
         <div className={styles.meetingActions}>
@@ -107,10 +107,10 @@ export default function LandingPage() {
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <div className={styles.footerLeft}>
-            <span>© 2024 Google Meet</span>
+            <span>© 2024 Meet ai</span>
           </div>
           <div className={styles.footerRight}>
-            <a href="https://meet.google.com/about">Learn more about Google Meet</a>
+            <a href="https://meet.google.com/about">Learn more about Meet ai</a>
             <a href="https://policies.google.com/privacy">Privacy</a>
             <a href="https://policies.google.com/terms">Terms</a>
           </div>

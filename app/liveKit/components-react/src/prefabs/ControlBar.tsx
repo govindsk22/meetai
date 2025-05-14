@@ -4,7 +4,14 @@ import * as React from 'react';
 import { MediaDeviceMenu } from './MediaDeviceMenu';
 import { DisconnectButton } from '../components/controls/DisconnectButton';
 import { TrackToggle } from '../components/controls/TrackToggle';
-import { ChatIcon, GearIcon, LeaveIcon, CaptionIcon, RaiseHandIcon, MoreOptionsIcon } from '../assets/icons';
+import {
+  ChatIcon,
+  GearIcon,
+  LeaveIcon,
+  CaptionIcon,
+  RaiseHandIcon,
+  MoreOptionsIcon,
+} from '../assets/icons';
 import { ChatToggle } from '../components/controls/ChatToggle';
 import { useLocalParticipantPermissions, usePersistentUserChoices } from '../hooks';
 import { useMediaQuery } from '../hooks/internal';
@@ -19,8 +26,6 @@ import { RaiseHandButton } from '../components/controls/RaiseHandButton';
 import { MoreOptionsButton } from '../components/controls/MoreOptionsButton';
 import { Chat } from './Chat';
 import { ParticipantsToggle } from '../components/ParticipantsToggle';
-
-
 
 /** @public */
 export type ControlBarControls = {
@@ -87,14 +92,14 @@ export function ControlBar({
   const defaultVariation = isTooLittleSpace ? 'minimal' : 'verbose';
   variation ??= defaultVariation;
 
-  const visibleControls = { 
-    leave: true, 
-    emoji: true, 
+  const visibleControls = {
+    leave: true,
+    emoji: true,
     caption: true,
     raiseHand: true,
     moreOptions: true,
     participants: true,
-    ...controls 
+    ...controls,
   };
 
   const localPermissions = useLocalParticipantPermissions();
@@ -156,13 +161,15 @@ export function ControlBar({
   React.useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      setCurrentTime(now.toLocaleTimeString('en-US', { 
-        hour: 'numeric', 
-        minute: '2-digit',
-        hour12: true 
-      }));
+      setCurrentTime(
+        now.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+        }),
+      );
     };
-    
+
     updateTime();
     const interval = setInterval(updateTime, 60000);
     return () => clearInterval(interval);
@@ -187,6 +194,7 @@ export function ControlBar({
             <TrackToggle
               source={Track.Source.Microphone}
               showIcon={showIcon}
+              style={{ width: '60px', height: '60px' }}
               onChange={microphoneOnChange}
               onDeviceError={(error) => onDeviceError?.({ source: Track.Source.Microphone, error })}
             />
@@ -197,58 +205,60 @@ export function ControlBar({
             <TrackToggle
               source={Track.Source.Camera}
               showIcon={showIcon}
+              style={{ width: '60px', height: '60px' }}
               onChange={cameraOnChange}
               onDeviceError={(error) => onDeviceError?.({ source: Track.Source.Camera, error })}
             />
           </div>
         )}
-        {visibleControls.emoji && (
-          <EmojiButton showIcon={showIcon} />
-        )}
         {visibleControls.caption && (
-          <CaptionButton showIcon={showIcon} />
+          <CaptionButton style={{ width: '60px', height: '60px' }} showIcon={showIcon} />
         )}
-        {visibleControls.raiseHand && (
-          <RaiseHandButton showIcon={showIcon} />
+        {visibleControls.emoji && (
+          <EmojiButton style={{ width: '60px', height: '60px' }} showIcon={showIcon} />
         )}
         {visibleControls.screenShare && browserSupportsScreenSharing && (
           <TrackToggle
             source={Track.Source.ScreenShare}
             captureOptions={{ audio: true, selfBrowserSurface: 'include' }}
             showIcon={showIcon}
+            style={{ width: '60px', height: '60px' }}
             onChange={onScreenShareChange}
             onDeviceError={(error) => onDeviceError?.({ source: Track.Source.ScreenShare, error })}
           />
         )}
+        {visibleControls.raiseHand && (
+          <RaiseHandButton style={{ width: '60px', height: '60px' }} showIcon={showIcon} />
+        )}
         {visibleControls.settings && (
-          <SettingsMenuToggle>
+          <SettingsMenuToggle style={{ width: '60px', height: '60px' }}>
             {showIcon && <GearIcon />}
           </SettingsMenuToggle>
         )}
         {visibleControls.moreOptions && (
-          <MoreOptionsButton showIcon={showIcon} />
+          <MoreOptionsButton style={{ width: '40px', height: '60px', borderRadius: '12px' }} showIcon={showIcon} />
         )}
         {visibleControls.leave && (
-          <DisconnectButton>
+          <DisconnectButton style={{ width: '60px', height: '60px', backgroundColor: 'red' }}>
             {showIcon && <LeaveIcon />}
           </DisconnectButton>
         )}
       </div>
       <div className="lk-controlbar-actions">
         {visibleControls.chat && (
-          <ChatToggle className="lk-controlbar-action-icon">
+          <ChatToggle style={{ backgroundColor: 'transparent', border: 'none', padding: '0px', margin: '0px' }} className="lk-controlbar-action-icon">
             <span className="material-icons">chat</span>
           </ChatToggle>
         )}
         {visibleControls.participants && (
-          <ParticipantsToggle className="lk-controlbar-action-icon">
+          <ParticipantsToggle style={{ backgroundColor: 'transparent', border: 'none', padding: '0px', margin: '0px' }} className="lk-controlbar-action-icon">
             <span className="material-icons">group</span>
           </ParticipantsToggle>
         )}
-        <button className="lk-controlbar-action-icon tools">
+        <button style={{ backgroundColor: 'transparent', border: 'none', padding: '0px', margin: '0px' }} className="lk-controlbar-action-icon tools">
           <span className="material-icons">apps</span>
         </button>
-        <button className="lk-controlbar-action-icon host">
+        <button style={{ backgroundColor: 'transparent', border: 'none', padding: '0px', margin: '0px' }} className="lk-controlbar-action-icon host">
           <span className="material-icons">admin_panel_settings</span>
         </button>
       </div>
