@@ -104,16 +104,22 @@ export const ParticipantTile: (
     }: ParticipantTileProps,
     ref,
   ) {
+    // const cameraPublication = participant.getTrackPublication?.(Track.Source.Camera);
+    // const isVideoEnabled = cameraPublication && cameraPublication.isSubscribed && !cameraPublication.isMuted;
+
     const trackReference = useEnsureTrackRef(trackRef);
 
-    const { enabled: isCameraEnabled } = useTrackToggle({ source: Track.Source.Camera });
-
-    const { elementProps } = useParticipantTile<HTMLDivElement>({
+    const participantTile = useParticipantTile<HTMLDivElement>({
       htmlProps,
       disableSpeakingIndicator,
       onParticipantClick,
       trackRef: trackReference,
     });
+
+    const { elementProps } = participantTile;
+
+    const isCameraDisabled = elementProps?.['data-lk-video-muted'];
+
     const isEncrypted = useIsEncrypted(trackReference.participant);
     const layoutContext = useMaybeLayoutContext();
 
@@ -178,8 +184,9 @@ export const ParticipantTile: (
             height: '100%',
           }}
         >
-          {renderVideo()}
+          {isCameraDisabled ? <ParticipantPlaceholder /> : renderVideo()}
           {/* {isCameraEnabled ? renderVideo() : <ParticipantPlaceholder />} */}
+
           {renderVideoControls()}
         </div>
       );
@@ -242,7 +249,7 @@ export const ParticipantTile: (
           padding: '10px',
           overflow: 'hidden',
           borderRadius: '10px',
-          background: 'rgba(0, 0, 0, 0.3)',
+          background: isCameraDisabled ? generateBackgroundColor() : 'rgba(0, 0, 0, 0.3)',
         }}
         {...elementProps}
       >
