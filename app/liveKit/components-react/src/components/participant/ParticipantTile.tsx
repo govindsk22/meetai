@@ -235,6 +235,11 @@ export const ParticipantTile: (
       );
     };
 
+    // Memoize the background color
+    const backgroundStyle = React.useMemo(() => {
+      return isCameraDisabled ? generateBackgroundColor() : 'rgba(0, 0, 0, 0.3)';
+    }, [isCameraDisabled]); // Only regenerate when isCameraDisabled changes
+
     return (
       <div
         ref={ref}
@@ -249,7 +254,7 @@ export const ParticipantTile: (
           padding: '10px',
           overflow: 'hidden',
           borderRadius: '10px',
-          background: isCameraDisabled ? generateBackgroundColor() : 'rgba(0, 0, 0, 0.3)',
+          background: backgroundStyle,
         }}
         {...elementProps}
       >
@@ -268,9 +273,12 @@ function generateBackgroundColor() {
   const gradients = [
     'radial-gradient(circle at 60% 40%, #4b5c77 0%, #1a2636 100%)', // blue/gray
     'radial-gradient(circle at 60% 40%, #8e44ad 0%, #3d0c4c 100%)', // purple
-    'radial-gradient(circle at 60% 40%, #6a11cb 0%, #2575fc 100%)', // blue/purple
-    'radial-gradient(circle at 60% 40%, #ff6a00 0%, #ee0979 100%)', // orange/pink
     'radial-gradient(circle at 60% 40%, #43cea2 0%, #185a9d 100%)', // teal/blue
+    'radial-gradient(circle at 60% 40%, #9b6b9e 0%, #4a3b6d 100%)', // dark purple
+    'radial-gradient(circle at 60% 40%, #e6a4a4 0%, #8e4e4e 100%)', // dark rose
+    'radial-gradient(circle at 60% 40%, #a4c1e6 0%, #4e6b8e 100%)', // dark blue
+    'radial-gradient(circle at 60% 40%, #e6d9a4 0%, #8e7e4e 100%)', // dark gold
+    'radial-gradient(circle at 60% 40%, #d9a4e6 0%, #7e4e8e 100%)', // dark lavender
   ];
   // Pick a random gradient
   return gradients[Math.floor(Math.random() * gradients.length)];
