@@ -50,14 +50,13 @@ export default function Page() {
           </button>
           <div className={styles.logo}>
             <img 
-              src="https://www.gstatic.com/meet/google_meet_horizontal_wordmark_2020q4_1x_icon_124_40_2373e79660dabbf194273d27aa7ee1f5.png"
-              srcSet="https://www.gstatic.com/meet/google_meet_horizontal_wordmark_2020q4_1x_icon_124_40_2373e79660dabbf194273d27aa7ee1f5.png 1x, https://www.gstatic.com/meet/google_meet_horizontal_wordmark_2020q4_2x_icon_124_40_292e71bcb52a56e2a9005164118f183b.png 2x"
-              alt="Google Meet"
+              src="/images/meet.jpg"
+              srcSet="/images/meet.jpg 1x, /images/meet.jpg 2x"
               width="124"
               height="40"
               className={styles.logoImage}
             />
-            <span className={styles.meetText}>Meet</span>
+            <span className={styles.meetText}>Meetai</span>
           </div>
         </div>
         <div className={styles.headerRight}>

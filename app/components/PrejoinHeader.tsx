@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import styles from '../../styles/Home.module.css';
 
 const LOGO_URL = 'https://www.gstatic.com/meet/meet_logo_dark_2020q4_8955caafa87e403c96e24e8aa63f2433.svg';
 
@@ -48,7 +49,8 @@ const PrejoinHeader: React.FC = () => {
       minHeight: 64,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <img src={LOGO_URL} alt="Meet Logo" style={{ height: 32 }} />
+        <img src="/images/meet.jpg" alt="Meet Logo" style={{ height: 32 }} />
+        <span className={styles.meetText}>Meetai</span>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
         <div style={{

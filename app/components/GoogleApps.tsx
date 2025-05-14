@@ -73,7 +73,7 @@ export default function GoogleApps() {
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H7v-4h4v4zm0-5H7V7h4v4zm5 5h-4v-4h4v4zm0-5h-4V7h4v4z" fill="#00897B"/>
                 </svg>
               </div>
-              <span>Meet</span>
+              <span>Meet-AI</span>
             </div>
             <div className={styles.appItem}>
               <div className={styles.appIcon}>

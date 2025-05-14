@@ -6,16 +6,16 @@ import { Providers } from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const GOOGLE_MEET_ICON = 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon_%282020%29.svg';
+  const GOOGLE_MEET_ICON = '/images/meet.jpg';
 
 
 export const metadata: Metadata = {
   title: {
-    default: 'Google Meet',
+    default: 'Meet ai',
     template: '%s',
   },
   description:
-    'Google Meet is a video conferencing platform that allows you to meet with your team, friends, and family.',
+    'Meet ai is a video conferencing platform that allows you to meet with your team, friends, and family.',
   twitter: {
     creator: '@googlemeet',
     site: '@googlemeet',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         type: 'image/svg+xml',
       },
     ],
-    siteName: 'Google Meet',
+    siteName: 'Meet ai',
   },
   icons: {
     icon: GOOGLE_MEET_ICON,
