@@ -36,7 +36,7 @@ function ParticipantListItem({ participant }: { participant: any }) {
       <span className="participants-avatar">{avatar}</span>
       <div className="participants-info">
         <div className="participants-name">
-          <ParticipantName participant={participant} />
+          <ParticipantName participant={participant} color={'#000'} />
           {participant.isLocal && <span className="participants-you"> (You)</span>}
         </div>
         {role && <div className="participants-role">{role}</div>}
@@ -74,10 +74,10 @@ export function Participants(props: ParticipantsProps) {
   );
 
   return (
-    <div {...props} className="lk-participants-panel" style={{ display: show ? 'flex' : 'none' }}>
+    <div {...props} className="lk-participants-panel" style={{ display: show ? 'flex' : 'none',  }}>
       <div className="participants-header">
         <div className="participants-title">People</div>
-        <ParticipantsToggle className="close-button">
+        <ParticipantsToggle style={{ backgroundColor: 'transparent', border: 'none', padding: '0px', margin: '0px' }} className="close-button">
           <span className="material-icons">close</span>
         </ParticipantsToggle>
       </div>

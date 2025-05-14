@@ -23,7 +23,7 @@ export interface ParticipantNameProps
 export const ParticipantName: (
   props: ParticipantNameProps & React.RefAttributes<HTMLSpanElement>,
 ) => React.ReactNode = /* @__PURE__ */ React.forwardRef<HTMLSpanElement, ParticipantNameProps>(
-  function ParticipantName({ participant, ...props }: ParticipantNameProps, ref) {
+  function ParticipantName({ participant, color,  ...props }: ParticipantNameProps, ref) {
     const p = useEnsureParticipant(participant);
 
     const { className, infoObserver } = React.useMemo(() => {
@@ -41,7 +41,7 @@ export const ParticipantName: (
     }, [props, className, name]);
 
     return (
-      <span ref={ref} {...mergedProps} style={{ color: 'white' }}>
+      <span ref={ref} {...mergedProps} style={{ color: color ||'white' }}>
         {name !== '' ? name : identity}
         {props.children}
       </span>
