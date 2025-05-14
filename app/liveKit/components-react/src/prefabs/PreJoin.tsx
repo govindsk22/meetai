@@ -251,7 +251,30 @@ export function PreJoin({
   const [videoEnabled, setVideoEnabled] = React.useState<boolean>(userChoices.videoEnabled);
   const [audioDeviceId, setAudioDeviceId] = React.useState<string>(userChoices.audioDeviceId);
   const [videoDeviceId, setVideoDeviceId] = React.useState<string>(userChoices.videoDeviceId);
-  const [username, setUsername] = React.useState(userChoices.username);
+  const [username, setUsername] = React.useState(userChoices.username || '');
+
+  // Fetch and persist username from session
+  React.useEffect(() => {
+    const fetchAndPersistUsername = async () => {
+      try {
+        const response = await fetch('/api/auth/session');
+        if (response.ok) {
+          const data = await response.json();
+          const sessionUsername = data.user?.name || 'Anonymous User';
+          setUsername(sessionUsername);
+          // Persist the username
+          saveUsername(sessionUsername);
+        }
+      } catch (error) {
+        console.error('Error fetching username:', error);
+        const fallbackUsername = 'Anonymous User';
+        setUsername(fallbackUsername);
+        saveUsername(fallbackUsername);
+      }
+    };
+
+    fetchAndPersistUsername();
+  }, [saveUsername]);
 
   // Save user choices to persistent storage.
   React.useEffect(() => {
@@ -266,9 +289,6 @@ export function PreJoin({
   React.useEffect(() => {
     saveVideoInputDeviceId(videoDeviceId);
   }, [videoDeviceId, saveVideoInputDeviceId]);
-  React.useEffect(() => {
-    saveUsername(username);
-  }, [username, saveUsername]);
 
   const tracks = usePreviewTracks(
     {
@@ -437,10 +457,21 @@ export function PreJoin({
               id="username"
               name="username"
               type="text"
-              defaultValue={username || 'Anonyms'}
-              placeholder={userLabel}
-              onChange={(inputEl) => setUsername(inputEl.target.value)}
+              value={username}
               autoComplete="off"
+              style={{
+                color: '#fff',
+                fontSize: '14px',
+                border: '1px solid rgba(255,255,255,0.3)',
+                fontWeight: 500,
+                background: 'rgba(0,0,0,0.2)',
+                borderRadius: '12px',
+                padding: '0.3em 1em',
+                minWidth: '100px',
+                pointerEvents: 'auto',
+                outline: 'none',
+                transition: 'all 0.2s',
+              }}
             />
             <span className="lk-video-quality">1080p</span>
           </div>
@@ -499,7 +530,7 @@ export function PreJoin({
         <form className="lk-join-form">
           <div className="lk-room-info">
             <div className="lk-room-name">
-              {username ? `Meeting with ${username}` : 'Sample Meeting'}
+              {typeof window === 'undefined' ? 'Sample Meeting' : (username ? `Meeting with ${username}` : 'Sample Meeting')}
             </div>
             <div className="lk-room-subtext">No one else is here</div>
           </div>

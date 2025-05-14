@@ -8,15 +8,21 @@ import { ConnectionDetails } from '@/lib/types';
 import {
   formatChatMessageLinks,
   LocalUserChoices,
-  RoomContext,
-  VideoConference,
   ControlBar,
+  // VideoConference,
   useTracks,
   useLocalParticipant,
 } from '@/app/liveKit/components-react';
+import { useSession } from 'next-auth/react';
+
+import { RoomContext } from '../../liveKit/components-react/src/context/room-context';
+
 import {
   PreJoin,
 } from '../../liveKit/components-react/src/prefabs/PreJoin';
+import {
+  VideoConference,
+} from '../../liveKit/components-react/src/prefabs/VideoConference';
 import {
   ExternalE2EEKeyProvider,
   RoomOptions,
@@ -42,16 +48,17 @@ export function PageClientImpl(props: {
   hq: boolean;
   codec: VideoCodec;
 }) {
+  const { data: session } = useSession();
   const [preJoinChoices, setPreJoinChoices] = React.useState<LocalUserChoices | undefined>(
     undefined,
   );
   const preJoinDefaults = React.useMemo(() => {
     return {
-      username: '',
+      username: session?.user?.name || '',
       videoEnabled: true,
       audioEnabled: true,
     };
-  }, []);
+  }, [session]);
   const [connectionDetails, setConnectionDetails] = React.useState<ConnectionDetails | undefined>(
     undefined,
   );
@@ -98,7 +105,7 @@ export function PageClientImpl(props: {
   return (
     <main style={{backgroundColor: '#FFF'}}>
       {connectionDetails === undefined || preJoinChoices === undefined ? (
-        <div style={{backgroundColor: 'red'}}>
+        <div>
           <PrejoinHeader /> 
           <PreJoin
             defaults={preJoinDefaults}
@@ -126,6 +133,7 @@ function VideoConferenceContent() {
   const [showChat, setShowChat] = useState(false);
 
   return (
+    <div style={{ width: '500px', height: '400px'}}>
     <VideoConference
       chatMessageFormatter={formatChatMessageLinks}
       SettingsComponent={SHOW_SETTINGS_MENU ? SettingsMenu : undefined}
@@ -166,11 +174,9 @@ function VideoConferenceContent() {
             }}
           />
         </div>
-
-        <DebugMode />
-        <RecordingIndicator />
       </div>
     </VideoConference>
+    </div>
   );
 }
 
@@ -302,7 +308,14 @@ function VideoConferenceComponent(props: {
 
   return (
     <RoomContext.Provider value={room}>
-      <VideoConferenceContent />
+      <div className="lk-room-container">
+        <VideoConference
+          chatMessageFormatter={formatChatMessageLinks}
+          SettingsComponent={SHOW_SETTINGS_MENU ? SettingsMenu : undefined}
+        />
+        <DebugMode />
+        <RecordingIndicator />
+      </div>
     </RoomContext.Provider>
   );
 }

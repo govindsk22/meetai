@@ -130,47 +130,90 @@ export function VideoConference({
 
   useWarnAboutMissingStyles();
 
+  const renderVideoConference = () => {
+    console.log('tracks', tracks);
+    console.log('focusTrack', focusTrack);
+    console.log('carouselTracks', carouselTracks);
+    if (!focusTrack) {
+      return (
+        <div className="lk-grid-layout-wrapper" style={{ width: '100%', height: '100%' }}>
+          <GridLayout tracks={tracks}>
+            <ParticipantTile />
+            {/* TO DO: Add a grid layout for the participants */}
+          </GridLayout>
+        </div>
+      );
+    } else {
+      return (
+        <div className="lk-focus-layout-wrapper" style={{ padding: '0px' }}>
+          <FocusLayoutContainer
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: '20px',
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            {focusTrack && <FocusLayout trackRef={focusTrack} />}
+            <CarouselLayout focusTrack={focusTrack} tracks={carouselTracks}>
+              <ParticipantTile />
+            </CarouselLayout>
+          </FocusLayoutContainer>
+        </div>
+      );
+    }
+  };
+
+  const renderChat = () => {
+    return (
+      <Chat
+        style={{ display: widgetState.showChat ? 'grid' : 'none' }}
+        messageFormatter={chatMessageFormatter}
+        messageEncoder={chatMessageEncoder}
+        messageDecoder={chatMessageDecoder}
+      />
+    );
+  };
+
+  const renderSettings = (SettingsComponent: React.ComponentType) => {
+    return (
+      <div
+        className="lk-settings-menu-modal"
+        style={{ display: widgetState.showSettings ? 'block' : 'none' }}
+      >
+        <SettingsComponent />
+      </div>
+    );
+  };
+
   return (
-    <div className="lk-video-conference" {...props}>
+    <div className="lk-video-conference" style={{ width: '100%', height: '100vh' }} {...props}>
       {isWeb() && (
         <LayoutContextProvider
           value={layoutContext}
           // onPinChange={handleFocusStateChange}
           onWidgetChange={widgetUpdate}
         >
-          <div className="lk-video-conference-inner">
-            {!focusTrack ? (
-              <div className="lk-grid-layout-wrapper">
-                <GridLayout tracks={tracks}>
-                  <ParticipantTile />
-                </GridLayout>
-              </div>
-            ) : (
-              <div className="lk-focus-layout-wrapper">
-                <FocusLayoutContainer>
-                  <CarouselLayout tracks={carouselTracks}>
-                    <ParticipantTile />
-                  </CarouselLayout>
-                  {focusTrack && <FocusLayout trackRef={focusTrack} />}
-                </FocusLayoutContainer>
-              </div>
-            )}
+          <div
+            className="lk-video-conference-inner"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
+              height: '100%',
+              backgroundColor: '#181818',
+              padding: '10px',
+            }}
+          >
+            {renderVideoConference()}
+            {/* TO DO: Add a control bar for the video conference */}
             <ControlBar controls={{ chat: true, settings: !!SettingsComponent }} />
           </div>
-          <Chat
-            style={{ display: widgetState.showChat ? 'grid' : 'none' }}
-            messageFormatter={chatMessageFormatter}
-            messageEncoder={chatMessageEncoder}
-            messageDecoder={chatMessageDecoder}
-          />
-          {SettingsComponent && (
-            <div
-              className="lk-settings-menu-modal"
-              style={{ display: widgetState.showSettings ? 'block' : 'none' }}
-            >
-              <SettingsComponent />
-            </div>
-          )}
+          {renderChat()}
+          {SettingsComponent && renderSettings(SettingsComponent)}
         </LayoutContextProvider>
       )}
       <RoomAudioRenderer />
